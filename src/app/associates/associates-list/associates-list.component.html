@@ -1,0 +1,23 @@
+<h1>{{title}}</h1>
+  <h2>{{ getHeadertext() }}</h2>
+ <img src = "">
+<div class="row">
+<div class="col-6 col-md-4">
+  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" nz-input [(ngModel)]= "searchValue" placeholder="input search text" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch (click)="onFilterAssociates()"><i nz-icon nzType="search"></i></button>
+    </ng-template>
+  </div>
+
+ <div class="col-6 col-md-4">
+  <button nz-button nzType="primary" [disabled] = "!editAssociateInfo" (click)="onGetAssociates()">Show Associates</button>
+  </div>
+</div>
+<h5>Associates:</h5>
+  <ul>
+    <li *ngFor="let ass of associate">
+      {{ ass.empid }} - {{ ass.name }}
+    </li>
+  </ul>

@@ -1,0 +1,187 @@
+<button nzTooltipTitle="Click to Filter Application list below" nzTooltipPlacement="rightBottom"  nz-button nzType="primary" (click)="openFilterDrawyer()" nz-tooltip>
+<i nz-icon nzType="filter" nzTheme="outline"></i></button>
+<div class="flex-container">
+<div fxLayout="row wrap" fxLayout.lt-md="column"  fxLayoutGap="5px">
+<div *ngFor="let app of application" >
+
+<nz-card style="width:300px;" [nzTitle]="cardTitle" [nzExtra]="extraTemplate">
+      <p>Tagline:  {{app.tagline}}</p>
+      <p>Release: {{app.released}}</p>
+    </nz-card>
+    <ng-template #extraTemplate>
+      <!--<i nz-icon nzType="edit" nzTheme="outline" (click) = "createBasicNotification(template); onClickImg(app.tagline)"></i> -->
+      <i nz-icon nzType="edit" nzTheme="outline" (click) = "onClickImg(app.tagline)"></i>
+    </ng-template>
+    <ng-template #cardTitle>
+      <nz-avatar nzSrc= {{app.img}}></nz-avatar>
+      {{app.title}}
+    </ng-template>
+<!-- comment added for Git check
+<nz-card style="width: 100%;margin-top: 16px" [nzLoading]="loading" [nzExtra]="extraTemplate">
+      <nz-card-meta
+        [nzAvatar]="avatarTemplate"
+        nzTitle={{app.title}}
+        nzDescription={{app.tagline}}
+      ></nz-card-meta>
+    </nz-card>
+
+     <ng-template #avatarTemplate>
+      <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+    </ng-template>
+    <ng-template #extraTemplate>
+      <a>More</a>
+    </ng-template>
+<p-card class = "tempcard" >
+    <p-header>
+      <p class = "test-val"> {{app.title}} </p>
+    </p-header>
+    <div class = "row">
+    <div class="col-md-1">
+     <nz-avatar nzIcon="user" nzSrc={{app.img}}  style=""></nz-avatar>
+     </div>
+     <div class="col-10">
+     <p> Text Related to User </p>
+     </div>
+     <div class="col-md-1">
+      <i nz-icon nzType="down" nzTheme="outline" style = "float: right;" ></i>
+    </div>
+    </div>
+</p-card> -->
+</div>
+</div>
+</div>
+
+<nz-drawer
+      [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"
+      [nzClosable]="false"
+      [nzWidth]="360"
+      [nzVisible]="visible"
+      nzPlacement="right"
+      nzTitle="Filter Selection"
+      (nzOnClose)="closFilterDrawyer()"
+    >
+      <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-label>Title/Title Contains</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="Enter Search Text" [(ngModel)]="titleSearch"/>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          </div>
+
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-label>Year</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="Select Year" [(ngModel)]="toYear"/>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          </div>
+
+<div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-label>Tag line contains</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="Search Text in Tag line" [(ngModel)]="tagSearch" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          </div>
+    <div class="footer">
+        <button type="button" (click)="closFilterDrawyer();  clearFilters()" class="ant-btn" style="margin-right: 8px;"><span>Cancel</span></button>
+        <button type="button" (click)="closFilterDrawyer(); onSubmit()" class="ant-btn ant-btn-primary"><span>Filter</span></button>
+      </div>
+
+</nz-drawer>
+
+<ng-template #template>
+      <div class="ant-notification-notice-content">
+        <div class="ant-notification-notice-with-icon">
+          <span class="ant-notification-notice-icon"
+            ><i nz-icon nzType="smile" style="color: rgb(16, 142, 233);"></i
+          ></span>
+          <div class="ant-notification-notice-message">Notification Title</div>
+          <div class="ant-notification-notice-description">
+            {{notMsg}}
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+
+ <nz-drawer
+      [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"
+      [nzMaskClosable]="false"
+      [nzWidth]="720"
+      [nzVisible]="editWindowvisible"
+      nzTitle={{editDrawerTitle}}
+      (nzOnClose)="editDrawyerclose()"
+    >
+      <form nz-form>
+        <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>Title</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="please enter the Title" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>Imdb Link</nz-form-label>
+              <nz-form-control>
+                <nz-input-group nzAddOnBefore="http://" nzAddOnAfter=".com">
+                  <input type="text" nz-input placeholder="please imbd Reference url" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>Director</nz-form-label>
+              <nz-form-control>
+                <nz-select nzPlaceHolder="Please select a Director"></nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>Type</nz-form-label>
+              <nz-form-control>
+                <nz-select nzPlaceHolder="Please choose the type"></nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>Tag</nz-form-label>
+              <nz-form-control>
+                <nz-select nzPlaceHolder="Please enter the Tag"></nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>Year</nz-form-label>
+              <nz-form-control>
+                <nz-range-picker></nz-range-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+      <div class="footer">
+        <button type="button" (click)="editDrawyerclose()" class="ant-btn" style="margin-right: 8px;"><span>Cancel</span></button>
+        <button type="button" (click)="editDrawyerclose()" class="ant-btn ant-btn-primary"><span>Submit</span></button>
+      </div>
+    </nz-drawer>

@@ -1,0 +1,67 @@
+.nz-avatar {margin-left:25px}
+
+.test-val {margin-left:30px; font-weight: bold;}
+
+
+  .tempcard{
+    padding: 10%;
+  }
+
+
+ .br {
+    display: block;
+    margin-bottom: 0em;
+}
+
+.brmedium {
+    display: block;
+    margin-bottom: 1em;
+}
+
+.brlarge {
+    display: block;
+    margin-bottom: 2em;
+}
+
+
+.brsmall {
+  display: block;
+  margin-bottom: -.2em;
+}
+
+.brxsmall {
+  display: block;
+  margin-bottom: -.4em;
+}
+
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  height: 100%;
+}
+
+
+p {
+  margin: 0;
+}
+
+
+.scrollable-container {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.background {
+  padding-top: 60px;
+  height: 100%;
+  background-image: url(//zos.alipayobjects.com/rmsportal/RmjwQiJorKyobvI.jpg);
+}
+
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+

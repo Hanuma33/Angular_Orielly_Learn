@@ -1,0 +1,22 @@
+
+<p-carousel [value]="ganesh" numVisible="3" (onPage)="setPage()">
+    <ng-template let-item pTemplate="item">
+    <img src= {{item.img}}  height="100" width ="100" />
+       <div class="p-col-12 car-data">
+                    <div class="car-title">{{item.value}}</div>
+                    <div class="car-buttons">
+                    <i nz-icon nzType="edit" style="padding-left:25px;" nzTheme="outline"></i>
+
+                    <i nz-icon nzType="star" style="padding-left:25px;" nzTheme="outline"></i>
+                    <i nz-icon nzType="delete" style="padding-left:25px;" nzTheme="outline"></i>
+                      <!--  <button pButton type="button" class="ui-button-secondary" icon="pi pi-search"></button>
+                        <button pButton type="button" class="ui-button-secondary" icon="pi pi-star"></button>
+                        <button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"></button>-->
+                    </div>
+                </div>
+    </ng-template>
+</p-carousel>
+<br/>
+<br/>
+<br/>
+<button type="button" (click)="addItem()">ADD ITEM</button>
