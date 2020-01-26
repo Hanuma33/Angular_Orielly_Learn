@@ -130,12 +130,21 @@
           <div nz-col nzSpan="12">
             <nz-form-item>
               <nz-form-label>Title</nz-form-label>
-              <nz-form-control>
+              <nz-form-control zHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
                 <input nz-input
                        id ="title"
                        type = "text"
                        placeholder="please enter the Title"
-                       formControlName = "title" />
+                       formControlName = "title">
+
+                      <ng-template #userErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Please input your title!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('minlength')">
+              The title should be minimum of lenght 6
+            </ng-container>
+          </ng-template>
               </nz-form-control>
             </nz-form-item>
           </div>

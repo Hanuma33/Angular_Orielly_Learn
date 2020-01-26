@@ -3,7 +3,7 @@ import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Link } from '../../types';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Applicationmodal } from '../modal/applicationmodal';
 import { Title } from '@angular/platform-browser';
 
@@ -71,10 +71,10 @@ export class ApplicationListComponent implements OnInit {
     // });
 
     this.applicationForm = this.fb.group({
-      title     : '',
-      released  : '',
-      tagline   : '',
-      img       : ''
+      title     : ['', [Validators.required, Validators.minLength(6)]],
+      released  : ['', [Validators.required, Validators.minLength(6)]],
+      tagline   : ['', [Validators.required, Validators.minLength(6)]],
+      img       : ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
