@@ -7,7 +7,7 @@ import { ApplicationTableComponent } from './application-table/application-table
 import { ApplicationRoutingModule } from './application-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import {CarouselModule} from 'primeng/carousel';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {CardModule} from 'primeng/card';
 import {DataViewModule} from 'primeng/dataview';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -24,7 +24,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CarouselModule,
     CardModule,
     DataViewModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ReactiveFormsModule
   ]
 })
 export class ApplicationModule { }

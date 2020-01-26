@@ -1,5 +1,8 @@
+<div fxLayout="row wrap" fxLayout.lt-md="column"  fxLayoutGap="5px">
 <button nzTooltipTitle="Click to Filter Application list below" nzTooltipPlacement="rightBottom"  nz-button nzType="primary" (click)="openFilterDrawyer()" nz-tooltip>
 <i nz-icon nzType="filter" nzTheme="outline"></i></button>
+<button nzTooltipTitle="Click to add new resource" (click)="addNewResource()" nz-button nzType="primary">Add Resource</button>
+</div>
 <div class="flex-container">
 <div fxLayout="row wrap" fxLayout.lt-md="column"  fxLayoutGap="5px">
 <div *ngFor="let app of application" >
@@ -10,7 +13,7 @@
     </nz-card>
     <ng-template #extraTemplate>
       <!--<i nz-icon nzType="edit" nzTheme="outline" (click) = "createBasicNotification(template); onClickImg(app.tagline)"></i> -->
-      <i nz-icon nzType="edit" nzTheme="outline" (click) = "onClickImg(app.tagline)"></i>
+      <i nz-icon nzType="edit" nzTheme="outline" (click) = "onClickImg(app)"></i>
     </ng-template>
     <ng-template #cardTitle>
       <nz-avatar nzSrc= {{app.img}}></nz-avatar>
@@ -122,23 +125,29 @@
       nzTitle={{editDrawerTitle}}
       (nzOnClose)="editDrawyerclose()"
     >
-      <form nz-form>
+      <form nz-form [formGroup] ="applicationForm">
         <div nz-row nzGutter="8">
           <div nz-col nzSpan="12">
             <nz-form-item>
               <nz-form-label>Title</nz-form-label>
               <nz-form-control>
-                <input nz-input placeholder="please enter the Title" />
+                <input nz-input
+                       id ="title"
+                       type = "text"
+                       placeholder="please enter the Title"
+                       formControlName = "title" />
               </nz-form-control>
             </nz-form-item>
           </div>
           <div nz-col nzSpan="12">
             <nz-form-item>
-              <nz-form-label>Imdb Link</nz-form-label>
+              <nz-form-label>Release date</nz-form-label>
               <nz-form-control>
-                <nz-input-group nzAddOnBefore="http://" nzAddOnAfter=".com">
-                  <input type="text" nz-input placeholder="please imbd Reference url" />
-                </nz-input-group>
+                  <input  nz-input
+                          id ="released"
+                          type = "text"
+                          placeholder="please enter the released date"
+                          formControlName = "released"/>
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -146,9 +155,13 @@
         <div nz-row nzGutter="8">
           <div nz-col nzSpan="12">
             <nz-form-item>
-              <nz-form-label>Director</nz-form-label>
+              <nz-form-label>Tagline</nz-form-label>
               <nz-form-control>
-                <nz-select nzPlaceHolder="Please select a Director"></nz-select>
+                <input  nz-input
+                          id ="tagline"
+                          type = "text"
+                          placeholder="please enter the taline"
+                          formControlName = "tagline"/>
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -156,25 +169,11 @@
             <nz-form-item>
               <nz-form-label>Type</nz-form-label>
               <nz-form-control>
-                <nz-select nzPlaceHolder="Please choose the type"></nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-        </div>
-        <div nz-row nzGutter="8">
-          <div nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label>Tag</nz-form-label>
-              <nz-form-control>
-                <nz-select nzPlaceHolder="Please enter the Tag"></nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <div nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label>Year</nz-form-label>
-              <nz-form-control>
-                <nz-range-picker></nz-range-picker>
+                <input  nz-input
+                          id ="img"
+                          type = "text"
+                          placeholder="please enter image line"
+                          formControlName = "img"/>
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -182,6 +181,6 @@
       </form>
       <div class="footer">
         <button type="button" (click)="editDrawyerclose()" class="ant-btn" style="margin-right: 8px;"><span>Cancel</span></button>
-        <button type="button" (click)="editDrawyerclose()" class="ant-btn ant-btn-primary"><span>Submit</span></button>
+        <button type="button" (click)="editDrawyerclose(); createBlankNotification()" class="ant-btn ant-btn-primary"><span>Submit</span></button>
       </div>
     </nz-drawer>

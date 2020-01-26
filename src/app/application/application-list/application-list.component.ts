@@ -3,6 +3,10 @@ import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Link } from '../../types';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Applicationmodal } from '../modal/applicationmodal';
+import { Title } from '@angular/platform-browser';
+
 
 
 const ASSOCIATE_QUERY = gql`
@@ -25,6 +29,8 @@ query AllMovies($title: String!, $releasedst:Int!,$releasednd:Int!,$taglinestr: 
 })
 export class ApplicationListComponent implements OnInit {
   @Input()
+  applicationForm: FormGroup;
+  appmodal: Applicationmodal = new Applicationmodal();
   link: Link;
   application: any[] = [];
   dataCount: number;
@@ -46,7 +52,9 @@ export class ApplicationListComponent implements OnInit {
   editDrawerTitle: string;
 
 
-  constructor(private apollo: Apollo, private notification: NzNotificationService) {
+  constructor(private apollo: Apollo,
+              private notification: NzNotificationService,
+              private fb: FormBuilder) {
 
     setTimeout(() => { this.editAppInfo = true; }, 6000);
     this.getGQLValuesonRequest();
@@ -55,6 +63,19 @@ export class ApplicationListComponent implements OnInit {
 
   ngOnInit() {
     this.editAppInfo = false;
+    // this.applicationForm = new FormGroup({
+    //   title     : new FormControl(),
+    //   released  : new FormControl(),
+    //   tagline   : new FormControl(),
+    //   img       : new FormControl(),
+    // });
+
+    this.applicationForm = this.fb.group({
+      title     : '',
+      released  : '',
+      tagline   : '',
+      img       : ''
+    });
   }
 
   onGetAssociates() {
@@ -122,18 +143,35 @@ getHeadertext() {
     this.notMsg = valuepass;
   }
 
-  onClickImg(tagline: string) {
-    this.notMsg = tagline;
+  createBlankNotification() {
+    this.notification.blank('Root Form Group Properties', JSON.stringify(this.applicationForm.value));
+    console.log(this.applicationForm);
+
+  }
+
+  onClickImg(app: any) {
+    this.notMsg = app.tagline;
+    // this.notification.blank('Root Form Group Properties', JSON.stringify(app));
+    this.applicationForm.patchValue(app);
+
     this.editWindowvisible = true;
     this.editDrawerTitle = 'Edit Application';
   }
 
-      editDrawyerclose() {
-        this.editWindowvisible = false;
-      }
+  editDrawyerclose() {
+    this.editWindowvisible = false;
+  }
 
-// Code added for Git Test
+  addNewResource() {
+
+    // this.notification.blank('Root Form Group Properties', JSON.stringify(''));
+
+    this.editWindowvisible = true;
+    this.editDrawerTitle = 'Add Application';
+  }
 
 
 }
+
+
 
