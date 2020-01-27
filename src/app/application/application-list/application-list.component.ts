@@ -72,9 +72,9 @@ export class ApplicationListComponent implements OnInit {
 
     this.applicationForm = this.fb.group({
       title     : ['', [Validators.required, Validators.minLength(6)]],
-      released  : ['', [Validators.required, Validators.minLength(6)]],
-      tagline   : ['', [Validators.required, Validators.minLength(6)]],
-      img       : ['', [Validators.required, Validators.minLength(6)]]
+      released  : ['', [Validators.required, Validators.minLength(4)]],
+      tagline   : '',
+      img       : ['', [Validators.required, Validators.minLength(4)]]
     });
   }
 
