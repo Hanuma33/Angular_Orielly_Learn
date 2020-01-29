@@ -6,6 +6,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Applicationmodal } from '../modal/applicationmodal';
 import { Title } from '@angular/platform-browser';
+import { ApplicationUpdateService } from '../service/application-update.service';
 
 
 
@@ -54,7 +55,8 @@ export class ApplicationListComponent implements OnInit {
 
   constructor(private apollo: Apollo,
               private notification: NzNotificationService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private applicationUpdateService: ApplicationUpdateService) {
 
     setTimeout(() => { this.editAppInfo = true; }, 6000);
     this.getGQLValuesonRequest();
@@ -151,6 +153,7 @@ getHeadertext() {
 
   onClickImg(app: any) {
     this.notMsg = app.tagline;
+    this.applicationForm.reset();
     // this.notification.blank('Root Form Group Properties', JSON.stringify(app));
     this.applicationForm.patchValue(app);
 
@@ -168,6 +171,19 @@ getHeadertext() {
 
     this.editWindowvisible = true;
     this.editDrawerTitle = 'Add Application';
+    this.applicationForm.reset();
+  }
+
+  updateAppData() {
+
+    console.log(this.applicationForm.value);
+
+    /*this.applicationUpdateService.submitUpdateApplication('apollographql/apollo-client')
+      .subscribe(({ data }) => {
+        console.log('got data', data);
+      }, (error) => {
+        console.log('there was an error sending the query', error);
+      }); */
   }
 
 
